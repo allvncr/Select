@@ -3,17 +3,17 @@
       <form action="">
           <div class="block">
             <p>Selection Simple: {{ textS.name }}</p>
-            <Select :list="pokemons" type="default" @Simple="Simple" isRequired="true"></Select>
+            <Select :list="pokemons" type="default" @Simple="Simple" isRequired></Select>
           </div>
 
             <div class="block">
-              <p>Selection Multiple(ctrl for multiple choice): <span v-for="(item, i) in textM" :key="i"> {{item.name}}</span> </p>
-              <Select :list="pokemons" type="multi" @Multi="Multi" isRequired="true"></Select>
+              <p>Selection Multiple(ctrl for multiple choice): <span v-for="(item, i) in textM" :key="i"> {{item.name}}</span></p>
+              <Select :list="pokemons" type="multi" @Multi="Multi" :isRequired="false" :min='2' :max='4'></Select>
             </div>
 
             <div class="block">
               <p>Selection Guidée: {{ textG.name }}</p>
-              <Select :list="pokemons" type="guide" @Guide="Guide"></Select>
+              <Select :list="joueurs" type="guide" @Guide="Guide"></Select>
             </div>
 
           <button type="submit">Envoyer</button>
@@ -33,6 +33,27 @@ export default {
   data() {
     return {
       pokemons:[],
+      joueurs: [
+        {
+          name:"messi",
+        },
+        {
+          name:"neymar",
+        },
+        {
+          name:"m'bappe",
+        },
+        {
+          name:"christiano",
+        },
+        {
+          name:"aguero",
+        },
+        {
+          name:"lewandowski",
+        }
+
+      ],
       textG : {},
       textS: {},
       textM: []
@@ -79,6 +100,8 @@ export default {
 
 .block{
   padding: 15px;
+  max-height: 200px;
+  z-index: 0;
 }
 
 </style>
