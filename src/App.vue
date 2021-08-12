@@ -1,20 +1,23 @@
 <template>
   <div id="app">
-      
-      <div class="block">
-        <p>Selection Simple: {{ textS.name }}</p>
-        <Select :list="pokemons" type="default" @Simple="Simple"></Select>
-      </div>
-      
-      <div class="block">
-        <p>Selection Multiple(ctrl for multiple choice): <span v-for="(item, i) in textM" :key="i"> {{item.name}}</span> </p>
-        <Select :list="pokemons" type="multi" @Multi="Multi"></Select>
-      </div>
+      <form action="">
+          <div class="block">
+            <p>Selection Simple: {{ textS.name }}</p>
+            <Select :list="pokemons" type="default" @Simple="Simple" isRequired="true"></Select>
+          </div>
 
-      <div class="block">
-        <p>Selection Guidée: {{ textG.name }}</p>
-        <Select :list="pokemons" type="guide" @Guide="Guide"></Select>
-      </div>
+            <div class="block">
+              <p>Selection Multiple(ctrl for multiple choice): <span v-for="(item, i) in textM" :key="i"> {{item.name}}</span> </p>
+              <Select :list="pokemons" type="multi" @Multi="Multi" isRequired="true"></Select>
+            </div>
+
+            <div class="block">
+              <p>Selection Guidée: {{ textG.name }}</p>
+              <Select :list="pokemons" type="guide" @Guide="Guide"></Select>
+            </div>
+
+          <button type="submit">Envoyer</button>
+      </form>
   </div>
 </template>
 
