@@ -2,26 +2,26 @@
   <div>
 
     <!-----------Selection Simple--------------->
-    <select v-if="type=='default' && isRequired=='false'" v-model="simple"  @click="Simple">
+    <select v-if="type=='default' && !isRequired" v-model="simple"  @click="Simple">
       <option v-for="(item, i) in list" :key="i" :value="item">
         {{ item.name }}
       </option>
     </select>
 
-    <select v-if="type=='default' && isRequired=='true'" v-model="simple"  @click="Simple" required>
+    <select v-if="type=='default' && isRequired" v-model="simple"  @click="Simple" required>
       <option v-for="(item, i) in list" :key="i" :value="item">
         {{ item.name }}
       </option>
     </select>
 
     <!-----------Selection Multiple--------------->
-    <select v-else-if="type=='multi' && isRequired=='false'" v-model="multi" @click="Multi" multiple>
+    <select v-else-if="type=='multi' && !isRequired" v-model="multi" @click="Multi" multiple>
       <option v-for="(item, i) in list" :key="i" :value="item">
         {{ item.name }}
       </option> 
     </select>
 
-    <select v-else-if="type=='multi' && isRequired=='true'" v-model="multi" @click="Multi" multiple required>
+    <select v-else-if="type=='multi' && isRequired" v-model="multi" @click="Multi" multiple required>
       <option v-for="(item, i) in list" :key="i" :value="item">
         {{ item.name }}
       </option> 
@@ -54,7 +54,9 @@ export default {
   props: {
     type: String,
     list: Array,
-    isRequired: String
+    isRequired: Boolean,
+    min: Number,
+    max: Number
   },
   data() {
     return {
@@ -89,18 +91,26 @@ export default {
     },
 
     Multi(){
-      this.$emit('Multi', this.multi)
+      if(this.multi.length < this.min)
+        alert('nombre minimum d element à selectionner est de '+ this.min)
+      if(this.multi.length > this.max){
+        alert('nombre maximum d element à selectionner est de '+ this.max)
+        this.multi.pop()
+      }
+      else
+        this.$emit('Multi', this.multi)
     }
   },
   mounted() {
     this.searchList = this.list;
+    console.log(this.min, this.max)
   },
 };
 </script>
 
 <style lang="scss" scoped>
   select {
-    padding: 16px 24px;
+    padding: 8px 16px;
     font-size: 18px;
     color: #0a0a0a;
     border-radius: 15px;
@@ -113,6 +123,7 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 100;
 
     input{
       padding: 8px 16px;
@@ -134,7 +145,6 @@ export default {
       width: 50%;
       padding: 0.5rem 0;
       border-radius: 5px;
-      max-height: 200px;
       overflow-y: scroll;
 
       p {
