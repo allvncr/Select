@@ -23,7 +23,7 @@
         type="search"
         placeholder="Search"
         v-model="text"
-        @click="show = !show"
+        @click="Open"
         @keyup="Search"
       />
       <div class="block" v-show="show">
@@ -54,9 +54,12 @@ export default {
     };
   },
   methods: {
+    Open(){
+      this.show = !this.show
+      this.Search()
+    },
     Search() {
-      this.show = true;
-      var results = [];
+      var results = []
       this.list.forEach((item) => {
         if (item.name.includes(this.text)) results.push(item);
       });
@@ -89,7 +92,6 @@ export default {
     font-size: 18px;
     color: #0a0a0a;
     border-radius: 15px;
-    max-height: 300px;
     overflow-y: scroll;
     outline: none;
   }
@@ -120,7 +122,7 @@ export default {
       width: 50%;
       padding: 0.5rem 0;
       border-radius: 5px;
-      max-height: 400px;
+      max-height: 200px;
       overflow-y: scroll;
 
       p {
