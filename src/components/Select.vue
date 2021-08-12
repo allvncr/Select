@@ -2,15 +2,26 @@
   <div>
 
     <!-----------Selection Simple--------------->
-    <select v-if="type=='default'" v-model="simple"  @click="Simple">
+    <select v-if="type=='default' && isRequired=='false'" v-model="simple"  @click="Simple">
       <option v-for="(item, i) in list" :key="i" :value="item">
         {{ item.name }}
       </option>
     </select>
 
+    <select v-if="type=='default' && isRequired=='true'" v-model="simple"  @click="Simple" required>
+      <option v-for="(item, i) in list" :key="i" :value="item">
+        {{ item.name }}
+      </option>
+    </select>
 
     <!-----------Selection Multiple--------------->
-    <select v-else-if="type=='multi'" v-model="multi" @click="Multi" multiple>
+    <select v-else-if="type=='multi' && isRequired=='false'" v-model="multi" @click="Multi" multiple>
+      <option v-for="(item, i) in list" :key="i" :value="item">
+        {{ item.name }}
+      </option> 
+    </select>
+
+    <select v-else-if="type=='multi' && isRequired=='true'" v-model="multi" @click="Multi" multiple required>
       <option v-for="(item, i) in list" :key="i" :value="item">
         {{ item.name }}
       </option> 
@@ -42,7 +53,8 @@
 export default {
   props: {
     type: String,
-    list: Array
+    list: Array,
+    isRequired: String
   },
   data() {
     return {
